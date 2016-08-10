@@ -43,13 +43,7 @@ class Base_Controller extends CI_Controller {
 	}
 	function init(){
 		$url = ex($this->init->url,"-");
-		echo $this->init->url;
-		exit();
-		if(!isset($url[0]) || empty($url[0])){
-			$url = "main-index";
-			$url = ex($url,"-");
-		}
-		if(count($url)!=2){
+		if(count($url)!=2 || empty($url[0]) || empty($url[1])){
 			$this->init->log->w404("链接为空{$this->init->url}");
 			show_404();
 		}

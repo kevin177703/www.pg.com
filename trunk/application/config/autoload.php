@@ -103,7 +103,7 @@ $autoload['helper'] = array('common','istring','icheck','ifile');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('define');
+$autoload['config'] = array('define','memcache');
 
 /*
 | -------------------------------------------------------------------
