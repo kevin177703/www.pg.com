@@ -21,19 +21,16 @@ class Admin_main{
 		$data['menu'] = $this->init->model->admin->get_menu($this->admin->token);
 		$data['username']= $this->admin->username;
 		$data['group_name']=$this->admin->group_name;
-		$data['open_search_brand']=$this->admin->open_search_brand;
-		$data['brand_list'] = "";
-		$data['is_brand_list'] = 0;
-		if(is_array($data['brand_list']) && count($data['brand_list'])>1 && $this->admin->group['admin_menus']=='Y'){
-			$data['is_brand_list'] = 1;
-		}
 		$data['now']=time();
+		$data['web_year']=date("Y");
 		$this->init->assign($data);
 		$this->init->display("main/index");
 	}
 	//后台登录页
 	function get_login(){
-		if($this->admin->uid>0)skip();
+		if($this->admin->uid > 0){
+			skip();
+		}
 		$this->init->display("main/login");
 	}
 	//后台登陆页ajax
@@ -67,7 +64,7 @@ class Admin_main{
 				$this->init->model->admin->edit_user_for_uid(array("is_luck"=>'N',"lucktime"=>null,"unlucktime"=>$unlucktime),$user['id']);
 			}else{
 				$num = ceil((24*3600-$time)/3600);
-				json_error("您的账号已被锁定，请重试{$num}小时后再试");
+				json_error("您的账号已被锁定，请{$num}小时后再试");
 			}
 		}
 		//获取解锁时间后的登录错误次数

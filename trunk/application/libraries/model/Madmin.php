@@ -54,12 +54,11 @@ class Madmin{
 		$info = $this->model->memcache->get($key);
 		if(empty($info)){
 			$info = null;
-			$sucess = false;
 			$where = array('status'=>'Y');
-			$data = $this->model->get_list($this->model->table_admin_menu,$where,1000,0,array ('sort'));
-			$data = $data ['rows'];
+			$data = $this->model->get_list($this->model->table_admin_menu,$where,1000,0,array('sort'));
+			$data = $data['rows'];
+			if(count($data)<1)return null;
 			$_data=array();
-			$rsort=array();
 			//$group=ex($group_list['menus_list']);
 			foreach ( $data as $v ) {
 				if ($v ['parent_id'] == 0) {
@@ -69,8 +68,6 @@ class Madmin{
 				} else {
 					//正常用户权限
 					//if(!in_array($v['id'],$group) && $group_id> $this->init->default_admin_group_id)continue;
-					//管理员操作其他代理权限
-					//if(!in_array($v['id'],$group) && $this->init->group_id == $this->init->default_admin_group_id && $this->init->op_agent_id>0)continue;
 					$menus = array('menuid'=>$v['id'],'menuname'=>$v['name'],'url'=>$v['url']);
 					$_data[$v['parent_id']]['menus'][] = $menus;
 				}
@@ -79,21 +76,8 @@ class Madmin{
 				if(!isset($v['menus']))unset($_data[$k]);    //不显示无子菜单的菜单项
 				if(!isset($v['menuname']))unset($_data[$k]); //不显示无父菜单的菜单项
 			}
-			if(count($_data)>0 && !empty($_data))$sucess=true;
-			$_data = array2sort ($_data, 'sort');
-			$data = '{"menus":[';
-			foreach ( $_data as $v ){
-				$data .= '{';
-				$data .= '"menuid":"'.$v['menuid'].'",';
-				$data .= '"menuname":"'.$v['menuname'].'",';
-				$data .= '"menus":[';
-				foreach ( $v ['menus'] as $vv) {
-					$data .='{"menuid":"'.$vv['menuid'].'","menuname":"'.$vv['menuname'].'","url":"'.$vv ['url'].'"},';
-				}
-				$data .= ']},';
-			}
-			$data .= ']}';
-			if($sucess){
+			$data = array2sort ($_data, 'sort');
+			if(count($data)>0 && !empty($data)){
 				$info = $data;
 				$this->model->memcache->set($key, $info);
 			}

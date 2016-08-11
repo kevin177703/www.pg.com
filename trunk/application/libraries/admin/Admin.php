@@ -8,7 +8,6 @@
  */
 class Admin{
 	private $init;                           		//默认起始类
-	public $open_search_brand = true;				//是否开启超级品牌管理其他品牌方法
 	public $token=null;								//令牌
 	
 	//**********************权限组********************/
@@ -57,7 +56,6 @@ class Admin{
 			$this->opener_name = "[{$this->group_name}]{$this->username}";
 			if($this->init->brand_id == ADMIN_BRAND_ID)$this->is_admin_brand = true;
 			if($this->group_id == ADMIN_GROUD_ID) $this->is_admin_group = true;
-			if($this->is_admin_group)$this->opener_name = color("[超]")."[{$this->group_name}]{$this->username}";
 		}
 		//是否需要做登录判断
 		$url = ex($this->init->url,"-");
@@ -68,25 +66,17 @@ class Admin{
 				skip("/admin/login");
 			}
 		}
-		
 		$this->brand_id = $this->init->brand_id;
-		//管理品牌可以操纵其他品牌
-		$search_brand_id = get_cookieI("search_brand_id");
-		if(isset($_GET['search_brand_id']) && $this->is_admin_brand){
-			$search_brand_id = intval($_GET['search_brand_id']);
-			del_cookieI("search_brand_id");
-			if($search_brand_id>0)set_cookieI("search_brand_id", $search_brand_id);
-		}
-		if($search_brand_id>0 && $this->open_search_brand)$this->brand_id = $search_brand_id;
-		
 		//全局模板变量
 		$assign = array(
 				"third"=>"/public/third/",
+				"ico" =>"/public/{$this->init->template_name}/",
 				"css"=>"/public/{$this->init->template_name}/css/",
 				"js"=>"/public/{$this->init->template_name}/js/",
 				"image"=>"/public/{$this->init->template_name}/image/",
+				"img"=>"/public/{$this->init->template_name}/img/",
 				"web_title"=>$this->init->brand_name,
-				"web_year"=>date("Y-m-d"),
+				"web_date"=>date("Y-m-d"),
 				"group"=>$this->group,
 		);
 		$this->init->assign($assign);

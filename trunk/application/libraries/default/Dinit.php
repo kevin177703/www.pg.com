@@ -85,16 +85,15 @@ class Dinit{
 			show_404();
 		}
 		$this->smarty->set_brand_template($this->template_name);
-		
 		if($host['app'] != APP){
 			if($this->is_ajax){
 				$this->log->w404("ajax地址异常");
 				show_404();
 			}
 			if($host['app']=="home"){
-				header("Location:/");
+				skip();
 			}else{
-				header("Location:/{$host['app']}/");
+				skip("/{$host['app']}/index");
 			}
 		}
 	}
