@@ -18,4 +18,6 @@ class Admin_setting{
 	//菜单列表
 	function get_menu(){
 	}
+	function get_group(){
+	}
 }

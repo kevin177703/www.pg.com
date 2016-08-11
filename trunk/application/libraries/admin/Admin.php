@@ -9,6 +9,7 @@
 class Admin{
 	private $init;                           		//默认起始类
 	public $token=null;								//令牌
+	public $action = "";							//操作命令
 	
 	//**********************权限组********************/
 	public $is_del = 'N'; 					 		//删除权限
@@ -37,6 +38,7 @@ class Admin{
 	//装载后台基础数据
 	function load($init){
 		$this->init = $init;
+		$this->action = get("action");
 		//设置cookie
 		$token_name = md5("atoken".ROOT_HOST);
 		$this->token = get_cookieI($token_name);

@@ -4,4 +4,5 @@ class Main extends Base_Controller {
 	public function index($html=null){}
 	public function member($html=null){}
 	public function log($html=null){}
+	public function setting($html=null){}
 }
