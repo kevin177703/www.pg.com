@@ -26,6 +26,9 @@ class Admin_main{
 		$this->init->assign($data);
 		$this->init->display("main/index");
 	}
+	function get_home(){
+		echo 11;
+	}
 	//后台登录页
 	function get_login(){
 		if($this->admin->uid > 0){
