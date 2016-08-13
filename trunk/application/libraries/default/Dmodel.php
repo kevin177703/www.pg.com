@@ -12,6 +12,7 @@
  * @property Msession $session
  * @property Msetting $setting
  * @property Mlog $log
+ * @property Mdeveloper $developer
  */
 class Dmodel {
 	private $ci;   
@@ -26,7 +27,7 @@ class Dmodel {
 	public $session = null;							//session
 	public $setting = null;							//设置相关类
 	public $log = null;								//日志相关
-	public $abc = null;
+	public $developer = null;						//开发管理
 	
 	function __construct(){
 		$this->ci = ci();
@@ -37,6 +38,7 @@ class Dmodel {
 		$this->session = library("msession","model");
 		$this->setting = library("msetting","model");
 		$this->log = library("mlog","model");
+		$this->developer = library("mdeveloper","model");
 	}
 	function set_class($log,$memcache){
 		$this->bmodel->set_class($log, $memcache);
@@ -46,5 +48,6 @@ class Dmodel {
 		$this->session->set_bmodel($this->bmodel);
 		$this->setting->set_bmodel($this->bmodel);
 		$this->log->set_bmodel($this->bmodel);
+		$this->developer->set_bmodel($this->bmodel);
 	}
 }

@@ -29,6 +29,6 @@ class Dsmarty extends Smarty {
 		return $this->display($html,$cache_id,$compile_id,$parent);
 	}
 	function dfetch($html, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false){
-		return fetch($html, $cache_id, $compile_id, $parent, $display, $merge_tpl_vars, $no_output_filter);
+		return $this->fetch($html, $cache_id, $compile_id, $parent, $display, $merge_tpl_vars, $no_output_filter);
 	}
 }

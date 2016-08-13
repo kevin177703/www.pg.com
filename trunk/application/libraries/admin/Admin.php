@@ -79,9 +79,12 @@ class Admin{
 				"img"=>"/public/{$this->init->template_name}/img/",
 				"web_title"=>$this->init->brand_name,
 				"web_date"=>date("Y-m-d"),
-				"group"=>$this->group,
+				"group"=>$this->group
 		);
 		$this->init->assign($assign);
+		$header = $this->init->fetch("header",$assign);
+		$footer = $this->init->fetch("footer",$assign);
+		$this->init->assign(array("header"=>$header,"footer"=>$footer));
 	}
 	//权限处理
 	private function _authority(){

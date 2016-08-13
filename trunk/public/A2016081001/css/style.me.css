@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+.me_table_data tbody tr:nth-child(2n+1){
+	background:#EAEAEA;
+}
+.red{
+	clolor:#EE0000;
+}
+.green{
+	clolor:#228B22;
+}
+.white{
+	clolor:#FFFFFF;
+}
+.black{
+	clolor:#000000;
+}
