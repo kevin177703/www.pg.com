@@ -18,7 +18,7 @@ class Admin_main{
 	//后台首页
 	function get_index(){
 		$data = array();
-		$data['menu'] = $this->init->model->admin->get_menu($this->admin->token);
+		$data['menu'] = $this->init->model->developer->get_menus($this->admin->token);
 		$data['username']= $this->admin->username;
 		$data['group_name']=$this->admin->group_name;
 		$data['now']=time();

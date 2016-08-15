@@ -77,6 +77,10 @@ class Dlog {
 	 */
 	function sql($sql,$time=0,$message=""){
 		$path = "{$this->path}sql/{$this->title}";
+		if(!file_exists($path)){
+			$content = "<?php defined('BASEPATH') OR exit('No direct script access allowed');\r\n";
+			write($path, $content);
+		}
 		$content = "[{$message}][{$time}]{$sql}";
 		$this->_write($content, $path);
 	}

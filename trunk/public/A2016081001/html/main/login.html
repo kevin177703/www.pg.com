@@ -7,6 +7,7 @@
 	<link rel="shortcut icon" href="{{$ico}}favicon.ico"> 
 	<link href="{{$css}}bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="{{$css}}font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{{$css}}plugins/iCheck/custom.css" rel="stylesheet">
     <link href="{{$css}}animate.min.css" rel="stylesheet">
     <link href="{{$css}}style.min862f.css?v=4.1.0" rel="stylesheet">
 </head>
@@ -18,9 +19,11 @@
             </div>
             <h3>欢迎您的到来</h3>
                 <div class="form-group">
+                	<label>用户名</label>
                     <input type="username" class="form-control" id="username" placeholder="用户名" required="">
                 </div>
                 <div class="form-group">
+                	<label>密码</label>
                     <input type="password" class="form-control" id="password" placeholder="密码" required="">
                 </div>
                 <button type="submit" id="but_login" class="btn btn-primary block full-width m-b">登 录</button>

@@ -54,7 +54,9 @@ class Base_Model extends CI_Model {
 	//*************************管理员相关表*************************/
 	public $table_admin = "admin";								//管理员表
 	public $table_admin_group = "admin_group";					//管理员组表
-	public $table_admin_menu = "admin_menu";					//后台管理菜单
+	
+	//*************************开发相关表*************************/
+	public $table_developer_menu = "developer_menu";			//后台菜单
 	
 	//*************************会员相关表**************************/
 	public $table_member = "member";							//会员表
@@ -286,7 +288,7 @@ class Base_Model extends CI_Model {
 		if($time>0){
 			$time = microtime(true)-$time;
 			if(empty($this->log))$this->log = library("Dlog");
-			$this->log->sql("[{$this->db_no}]{$sql}",$time,$message);
+			$this->log->sql("[{$this->db_no}]\r\n{$sql}",$time,$message);
 		}
 		return $sql;
 	}

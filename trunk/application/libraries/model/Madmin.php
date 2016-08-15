@@ -46,42 +46,4 @@ class Madmin{
 	function get_group_for_id($id){
 		return $this->model->get($this->model->table_admin_group,array("id"=>$id));
 	}
-	/**
-	 * 获取菜单
-	 */
-	function get_menu($token){
-		$key = "admin_menu_{$token}";
-		$info = $this->model->memcache->get($key);
-		if(empty($info)){
-			$info = null;
-			$where = array('status'=>'Y');
-			$data = $this->model->get_list($this->model->table_admin_menu,$where,1000,0,array('sort'));
-			$data = $data['rows'];
-			if(count($data)<1)return null;
-			$_data=array();
-			//$group=ex($group_list['menus_list']);
-			foreach ( $data as $v ) {
-				if ($v ['parent_id'] == 0) {
-					$_data[$v['id']]['sort']=$v['sort'];
-					$_data[$v['id']]['menuid']=$v['id'];
-					$_data[$v['id']]['menuname']=$v['name'];
-				} else {
-					//正常用户权限
-					//if(!in_array($v['id'],$group) && $group_id> $this->init->default_admin_group_id)continue;
-					$menus = array('menuid'=>$v['id'],'menuname'=>$v['name'],'url'=>$v['url']);
-					$_data[$v['parent_id']]['menus'][] = $menus;
-				}
-			}
-			foreach($_data as $k=>$v){
-				if(!isset($v['menus']))unset($_data[$k]);    //不显示无子菜单的菜单项
-				if(!isset($v['menuname']))unset($_data[$k]); //不显示无父菜单的菜单项
-			}
-			$data = array2sort ($_data, 'sort');
-			if(count($data)>0 && !empty($data)){
-				$info = $data;
-				$this->model->memcache->set($key, $info);
-			}
-		}
-		return $info;
-	}
 }
