@@ -18,14 +18,14 @@ class Mdeveloper{
 	}
 	/**
 	 * 获取对应条件的菜单列表
-	 * @param $level 菜单级别
 	 * @param $parent_id 菜单父类id
+	 * @param $limit 个数
+	 * @param $offset 起始
 	 */
-	function get_menus_list($level,$parent_id){
+	function get_menus_list($parent_id,$limit,$offset=0){
 		$where = array('status'=>'Y');
-		if($parent_id>0)$where['parent_id'] = $parent_id;
-		if($level>0)$where['level'] = $level;
-		return $this->model->get_list($this->model->table_developer_menu,$where,1000,0,array('sort'));
+		if($parent_id>=0)$where['parent_id'] = $parent_id;
+		return $this->model->get_list($this->model->table_developer_menu,$where,$limit,$offset);
 	}
 	/**
 	 * 根据域名获取菜单信息
@@ -44,7 +44,8 @@ class Mdeveloper{
 		$info = $this->model->memcache->get($key);
 		if(empty($info)){
 			$info = null;
-			$data = $this->get_menus_list(1,0);
+			$where = array('status'=>'Y','level'=>1);
+			$data = $this->model->get_list($this->model->table_developer_menu,$where,1000,0,array('sort'));
 			$data = $data['rows'];
 			if(count($data)<1)return null;
 			$_data=array();
@@ -57,7 +58,7 @@ class Mdeveloper{
 				} else {
 					//正常用户权限
 					//if(!in_array($v['id'],$group) && $group_id> $this->init->default_admin_group_id)continue;
-					$url = empty($v['action'])?$v['url']:$v['url']."?".$v['action'];
+					$url = empty($v['action'])?$v['url']:$v['url']."?action=".$v['action'];
 					$menus = array('menuid'=>$v['id'],'menuname'=>$v['name'],'url'=>$url);
 					$_data[$v['parent_id']]['menus'][] = $menus;
 				}

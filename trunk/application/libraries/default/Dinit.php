@@ -31,6 +31,7 @@ class Dinit{
 	public $brand_id = 0;							//品牌id
 	public $agent_id = 0;							//代理id
 	public $template_name = "";						//获取模板名称
+	public $template_html = "";						//模版html目录
 	//构造函数
 	function __construct(){
 		$this->ci = ci();
@@ -104,7 +105,8 @@ class Dinit{
 	 */
 	function display($html, $data = array()) {
 		$this->smarty->dassign($data);
-		$this->smarty->ddisplay($html.'.html');
+		$html = empty($this->template_html)?"{$html}.html":"{$this->template_html}/{$html}.html";
+		$this->smarty->ddisplay($html);
 	}
 	/**
 	 * 引入smarty模版参数
@@ -120,6 +122,7 @@ class Dinit{
 	 */
 	function fetch($html, $data = array()) {
 		$this->smarty->dassign($data);
-		return $this->smarty->dfetch($html.'.html');
+		$html = empty($this->template_html)?"{$html}.html":"{$this->template_html}/{$html}.html";
+		return $this->smarty->dfetch($html);
 	}
 }

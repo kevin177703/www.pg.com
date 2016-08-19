@@ -14,11 +14,17 @@ class Admin_developer{
 		$this->init = $init;
 		$this->admin = library("admin","admin");
 		$this->admin->load($init);
+		$this->init->template_html = "developer";
 	}
 	//菜单管理
 	function get_menus(){
 		if($this->admin->action=='list'){
-			$this->init->display("developer/menus_list");
+			$parent_id = get("parent_id","int");
+			$level = get("level","int");
+			if($level<1)$level = 1;
+			if($parent_id<0)$parent_id = 0;
+			$data = $this->init->model->developer->get_menus_list($parent_id,1000,0);
+			$this->init->display("menus_list",array("data"=>$data['rows']));
 		}elseif($this->admin->action=='edit'){
 			
 		}elseif($this->admin->action=='add'){
