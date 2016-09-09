@@ -3,8 +3,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>菜单列表</h5>
+                    <div class="ibox-tools lleft100">
+                         <a href="developer-menus.html?action=list" class="btn btn-primary btn-xs">添加菜单</a>
+                         <a href="developer-menus.html?action=list" class="btn btn-primary btn-xs">返回菜单管理列表</a>
                     </div>
                     <div class="ibox-content">
                         <table class="table me_table_data">
@@ -21,51 +22,62 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {{foreach from=$data item=d key=k}}
+                            {{foreach from=$data item=d key=k name=foo}}
                                 <tr>
-                                    <td>{{$d.id}}</td>
+                                    <td>
+                                    	<input type="checkbox" name="ckboxfoo" id="ckbox{{$smarty.foreach.foo.index+1}}" class="i-checks" value="{{$d.id}}">{{$d.id}}
+									</td>
                                     <td>{{$d.name}}</td>
                                     <td>{{$d.url}}</td>
                                     <td>{{$d.action}}</td>
-                                    <td>{{$d.sort}}</td>
-                                    <td>{{$d.status}}</td>
+                                    <td><input type="text" id="exampleInputEmail2" class="form-control" style="width:80px;" value="{{$d.sort}}"></td>
+                                    <td>
+	                                    {{if $d.status=='Y'}}
+	                                    <span class="label label-primary">启用</span>
+	                                    {{else}}
+	                                    <span class="label label-danger">禁用</span>
+	                                    {{/if}}
+                                    </td>
                                     <td><a href="developer-menus.html?action=list&parent_id={{$d.id}}">下级菜单</a></td>
-                                    <td>X</td>
+                                    <td>
+	                                    <a href="javascript:;" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a> | 
+	                                    <a href="javascript:;" class="btn btn-white btn-sm"><i class="fa fa-times"></i> 删除</a> |
+	                                    {{if $d.status=='Y'}}
+	                                    	<a href="javascript:;" class="btn btn-white btn-sm"><i class="fa fa-times text-danger"></i> 禁用</a>
+	                                    {{else}}
+	                                    	<a href="javascript:;" class="btn btn-white btn-sm"><i class="fa fa-check text-navy"></i> 启用</a>
+	                                    {{/if}}
+                                    </td>
                                 </tr>
                             {{/foreach}}
                             </tbody>
-                            <!--
                             <tfoot>
                                 <tr>
-                                    <th>渲染引擎</th>
-                                    <th>浏览器</th>
-                                    <th>平台</th>
-                                    <th>引擎版本</th>
-                                    <th>CSS等级</th>
-                                    <td>X</td>
+                                    <th ><div id="ckboxfull"><input type="checkbox"  class="i-checks">全选</div></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                    	<button class="btn btn-success " type="button">
+                                    	<i class="fa"></i>&nbsp;&nbsp;<span class="bold">保存</span>&nbsp;&nbsp;
+                                    	</button>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </tfoot>
-                            -->
                         </table>
-                        <!--
-						<div class="row">
-						<div class="col-sm-6">
-						<div class="dataTables_info" id="DataTables_Table_0_info" role="alert" aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 57 项</div>
-						</div><div class="col-sm-6">
-						<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-						<ul class="pagination">
-						<li class="paginate_button previous disabled" aria-controls="DataTables_Table_0" tabindex="0" id="DataTables_Table_0_previous"><a href="#">上一页</a></li>
-						<li class="paginate_button active" aria-controls="DataTables_Table_0" tabindex="0"><a href="#">1</a></li>
-						<li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a href="#">2</a></li>
-						<li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a href="#">3</a></li>
-						<li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a href="#">4</a></li>
-						<li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a href="#">...</a></li>
-						<li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a href="#">6</a></li>
-						<li class="paginate_button next" aria-controls="DataTables_Table_0" tabindex="0" id="DataTables_Table_0_next">
-						<a href="#">下一页</a></li></ul></div></div></div>  -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {{$footer}}
+<script>
+$(function(){
+	$("#ckboxfull .iCheck-helper").click(function(){
+		alert(1);
+	});
+});
+</script>

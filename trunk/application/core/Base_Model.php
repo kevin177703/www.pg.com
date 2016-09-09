@@ -254,6 +254,9 @@ class Base_Model extends CI_Model {
 		if(is_array($where)){
 			$where['del']='N';
 		}
+		if(empty($where)){
+			$where['del']='N';
+		}
 		$data = array('total'=>0,'rows'=>array());
 		$data['total'] = $this->total($table,$where);
 		$this->last_sql($begin_time,"base_get_list_total");

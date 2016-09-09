@@ -94,7 +94,7 @@ class Dinit{
 			if($host['app']=="home"){
 				skip();
 			}else{
-				skip("/{$host['app']}/index");
+				skip("/{$host['app']}/");
 			}
 		}
 	}

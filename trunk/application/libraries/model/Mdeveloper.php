@@ -23,7 +23,6 @@ class Mdeveloper{
 	 * @param $offset 起始
 	 */
 	function get_menus_list($parent_id,$limit,$offset=0){
-		$where = array('status'=>'Y');
 		if($parent_id>=0)$where['parent_id'] = $parent_id;
 		return $this->model->get_list($this->model->table_developer_menu,$where,$limit,$offset);
 	}

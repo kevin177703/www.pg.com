@@ -26,9 +26,9 @@ class Admin_developer{
 			$data = $this->init->model->developer->get_menus_list($parent_id,1000,0);
 			$this->init->display("menus_list",array("data"=>$data['rows']));
 		}elseif($this->admin->action=='edit'){
-			
+			$this->init->display("menus_edit");
 		}elseif($this->admin->action=='add'){
-			
+			$this->init->display("menus_add");
 		}elseif($this->admin->action=='del'){
 			
 		}

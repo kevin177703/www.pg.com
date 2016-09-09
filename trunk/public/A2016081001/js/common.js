@@ -40,11 +40,14 @@ function unloading(){
     layer.close(layer_load);
 }
 //icon　0警告，１成功，２错误
-function msg_show(txt,icon=0,url='',top=false){
+function msg_show(txt,icon,url,top){
+	if(typeof icon=="undefined")icon=0;
+	if(typeof url=="undefined")url='';
+	if(typeof top=="undefined")top=false;
 	layer.msg(txt,{icon:icon,time:2000,shade:[0.3,'#000',true]},function(){
 		if(isEmptyVal(url)==false){
 			if(top==true){
-				top.location.href = url;
+				window.top.location.href = url;
 			}else{
 				location.href = url;
 			}

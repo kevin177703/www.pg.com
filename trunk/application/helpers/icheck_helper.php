@@ -33,7 +33,7 @@ if(!function_exists('url')){
 			$param = ltrim($str,'&');
 		}
 		$param = empty($param)?"":"?".$param;
-		$url = ($url=="/" || empty($url))?"/":$url.".html";
+		$url = (empty($url))?"/":(substr($url,-1,1)=="/"?$url:$url.".html");
 		$url = $url.$param;
 		return $url;
 	}
