@@ -1,38 +1,20 @@
+{{$header}}
 
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="http://www.helloweba.com/demo/css/main.css" />
-<link rel="stylesheet" type="text/css" href="http://www.helloweba.com/demo/css3checkbox/style.css" />
-<script src="{{$js}}jquery.min.js?v=2.2.4"></script>
-</head>
-<script>
-$("#checkbox_a1").click(function(){
-	alert(1);
-});
-</script>
-<body>
-		<div class="wrap">
-			<p>1. 勾选</p>
-			<input type="checkbox" id="checkbox_a1" class="chk_1" checked /><label for="checkbox_a1"></label>
-			<input type="checkbox" id="checkbox_a2" class="chk_1" /><label for="checkbox_a2"></label>
-		</div>
-		<div class="wrap" style="width:198px">
-			<p>2. 单按钮</p>
-			<input type="checkbox" id="checkbox_b1" class="chk_2" /><label for="checkbox_b1">我同意</label>
-		</div>
-		
-		<div class="wrap" style="width: 180px;">
-			<p>3. 移动端开关</p>
-			<input type="checkbox" id="checkbox_c1" class="chk_3" /><label for="checkbox_c1"></label>
-			<input type="checkbox" id="checkbox_c2" class="chk_3" checked /><label for="checkbox_c2"></label>
-		</div>
-		
-		<div class="wrap" style="width: 231px;">
-			<p>4. 开启和关闭</p>
-			<input type="checkbox" id="checkbox_d1" class="chk_4" /><label for="checkbox_d1"></label>
-			<input type="checkbox" id="checkbox_d2" class="chk_4" checked /><label for="checkbox_d2"></label>
-		</div>
-</body>
-</html>
+                            <div class="onoffswitch">
+                                <input type="checkbox" checked class="onoffswitch-checkbox" id="example1">
+                                <label class="onoffswitch-label" for="example1">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" class="onoffswitch-checkbox" id="example2">
+                                <label class="onoffswitch-label" for="example2">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+
+{{$footer}}

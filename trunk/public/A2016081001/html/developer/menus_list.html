@@ -25,18 +25,27 @@
                             {{foreach from=$data item=d key=k name=foo}}
                                 <tr>
                                     <td>
-                                    	<input type="checkbox" name="ckboxfoo" id="ckbox{{$smarty.foreach.foo.index+1}}" class="i-checks" value="{{$d.id}}">{{$d.id}}
+                                    	<input type="checkbox" name="ckboxfoo" class="i-checks" value="{{$d.id}}">{{$d.id}}
 									</td>
                                     <td>{{$d.name}}</td>
                                     <td>{{$d.url}}</td>
                                     <td>{{$d.action}}</td>
-                                    <td><input type="text" id="exampleInputEmail2" class="form-control" style="width:80px;" value="{{$d.sort}}"></td>
+                                    <td><input type="text" id="sort{{$d.id}}" class="form-control" style="width:80px;" value="{{$d.sort}}"></td>
                                     <td>
+                                    	<div class="onoffswitch">
+			                                <input type="checkbox" name="ckboxstatus" {{if $d.status=='Y'}}checked{{/if}} class="onoffswitch-checkbox" value="{{$d.id}}" id="status{{$d.id}}">
+			                                <label class="onoffswitch-label" for="status{{$d.id}}">
+			                                    <span class="onoffswitch-inner"></span>
+			                                    <span class="onoffswitch-switch"></span>
+			                                </label>
+			                            </div>
+			                            <!-- 
 	                                    {{if $d.status=='Y'}}
 	                                    <span class="label label-primary">启用</span>
 	                                    {{else}}
 	                                    <span class="label label-danger">禁用</span>
 	                                    {{/if}}
+	                                     -->
                                     </td>
                                     <td><a href="developer-menus.html?action=list&parent_id={{$d.id}}">下级菜单</a></td>
                                     <td>
@@ -53,12 +62,12 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th ><div id="ckboxfull"><input type="checkbox"  class="i-checks">全选</div></th>
+                                    <th ><input type="checkbox" id="ckboxfull" class="i-checks">全选</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th>
-                                    	<button class="btn btn-success " type="button">
+                                    	<button class="btn btn-success " type="button" id="but_sort">
                                     	<i class="fa"></i>&nbsp;&nbsp;<span class="bold">保存</span>&nbsp;&nbsp;
                                     	</button>
                                     </th>
@@ -76,8 +85,29 @@
 {{$footer}}
 <script>
 $(function(){
-	$("#ckboxfull .iCheck-helper").click(function(){
+	$("#ckboxfull").on('ifChecked', function(event){
+		$("input[name='ckboxfoo']").iCheck('check');
+	});
+	$("#ckboxfull").on('ifUnchecked', function(event){
+		$("input[name='ckboxfoo']").iCheck('uncheck');
+	});
+	$("#status1").on('ifChecked', function(event){
 		alert(1);
+	});
+	$("#but_sort").click(function(){
+	  	var ids="";
+	  	var sorts = "";
+	  	$("input[name='ckboxfoo']:checkbox").each(function(){
+	    	if(true == $(this).is(':checked')){
+	    		var id=$(this).val();
+	      		ids +=id+",";
+	      		sorts += $("#sort"+id).val()+",";
+	   	 	}
+	  	});
+	  	alert(ids+"|"+sorts);
+	});
+	$(".onoffswitch").click(function(){
+		//alert(22);
 	});
 });
 </script>
