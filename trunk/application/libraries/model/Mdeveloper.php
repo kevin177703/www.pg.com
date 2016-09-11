@@ -74,4 +74,19 @@ class Mdeveloper{
 		}
 		return $info;
 	}
+	/**
+	 * 修改单条数据
+	 * @param $data 数据内容
+	 * @param $where 条件
+	 */
+	function edit_menus_one($data,$where){
+		return $this->model->edit($this->model->table_developer_menu, $data, $where);
+	}
+	/**
+	 * 根据id修改多条数据
+	 * @param $data 数据内容
+	 */
+	function edit_menus_more_for_id($data){
+		return $this->model->edit_batch($this->model->table_developer_menu, $data, "id");
+	}
 }

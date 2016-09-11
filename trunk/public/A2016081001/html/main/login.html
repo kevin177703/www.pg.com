@@ -67,7 +67,10 @@ $(function(){
 				}else {
 					msg_show(data.msg);
 				}               
-			}   
+			},
+			error: function(data){
+				msg_show("登录失败");
+			}
 	   });  
 	});
 })

@@ -98,6 +98,39 @@ $(function(){
 		var self = $(".onoffswitch-label").index($(this));
 		var id = $("#status"+self).val();
 		var status = $("#status"+self).is(':checked');
+		$.ajax({
+			type: "POST",   
+          	url: "ajax/developer-menus.html?action=list&branch=status",
+          	data:{
+				id:id,
+				status:status
+          	}, 
+          	dataType:'json',
+          	beforeSend:function(){   
+          		loading();
+          	},		    
+          	complete: function() {   
+          		unloading();
+          	},   
+          	success: function(data){
+				if(data.result != true){
+					msg_show(data.msg);
+					if(status==true){
+						$("#status"+self).iCheck('check');
+					}else{
+						$("#status"+self).iCheck('uncheck');
+					}
+				}               
+			},
+			error: function(data){
+				msg_show("操作失败");
+				if(status==true){
+					$("#status"+self).iCheck('check');
+				}else{
+					$("#status"+self).iCheck('uncheck');
+				}
+			}
+	   }); 
 	});
 });
 </script>

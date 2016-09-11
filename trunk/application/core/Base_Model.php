@@ -192,6 +192,18 @@ class Base_Model extends CI_Model {
 		return $bol;
 	}
 	/**
+	 * 修改多条数据
+	 * @param $table 表
+	 * @param $data 修改的数据
+	 * @param $index where键
+	 */
+	function edit_batch($table, $data, $index) {
+		$begin_time = microtime(true);
+		$bol = $this->db->update_batch($table, $data, $index);
+		$this->last_sql($begin_time,"base_edit_batch");
+		return $bol;
+	}
+	/**
 	 * 非真实删除,只是改变状态，不影响其他，所有表字段必须有del字段
 	 * @param $table
 	 * @param $where
