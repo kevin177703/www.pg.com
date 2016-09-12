@@ -273,9 +273,14 @@ class Base_Model extends CI_Model {
 		$data['total'] = $this->total($table,$where);
 		$this->last_sql($begin_time,"base_get_list_total");
 		if($data['total']>0){
-			if(isset($order[0]) && !empty($order[0])){
-				$order[1]= isset($order[1])?$order[1]:'desc';
-				$this->db->order_by($order[0],$order[1]);
+			if(count($order)>0){
+				foreach ($order as $k=>$v){
+					if(is_numeric($k)){
+						$k=$v;
+						$v="DESC";
+					}
+					$this->db->order_by($k,$v);
+				}
 			}
 			$query = $this->db->get_where($table,$where,$limit,$offset );
 			$data['rows']=$query->result_array();

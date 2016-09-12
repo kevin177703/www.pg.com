@@ -21,10 +21,11 @@ class Mdeveloper{
 	 * @param $parent_id 菜单父类id
 	 * @param $limit 个数
 	 * @param $offset 起始
+	 * @param $order 排序
 	 */
-	function get_menus_list($parent_id,$limit,$offset=0){
+	function get_menus_list($parent_id,$limit,$offset=0,$order=array()){
 		if($parent_id>=0)$where['parent_id'] = $parent_id;
-		return $this->model->get_list($this->model->table_developer_menu,$where,$limit,$offset);
+		return $this->model->get_list($this->model->table_developer_menu,$where,$limit,$offset,$order);
 	}
 	/**
 	 * 根据域名获取菜单信息
@@ -44,7 +45,7 @@ class Mdeveloper{
 		if(empty($info)){
 			$info = null;
 			$where = array('status'=>'Y','level'=>1);
-			$data = $this->model->get_list($this->model->table_developer_menu,$where,1000,0,array('sort'));
+			$data = $this->model->get_list($this->model->table_developer_menu,$where,1000,0,array('sort'=>'ASC'));
 			$data = $data['rows'];
 			if(count($data)<1)return null;
 			$_data=array();
@@ -66,7 +67,7 @@ class Mdeveloper{
 				if(!isset($v['menus']))unset($_data[$k]);    //不显示无子菜单的菜单项
 				if(!isset($v['menuname']))unset($_data[$k]); //不显示无父菜单的菜单项
 			}
-			$data = array2sort ($_data, 'sort');
+			$data = array2sort ($_data, 'sort',false);
 			if(count($data)>0 && !empty($data)){
 				$info = $data;
 				$this->model->memcache->set($key, $info);
@@ -85,8 +86,9 @@ class Mdeveloper{
 	/**
 	 * 根据id修改多条数据
 	 * @param $data 数据内容
+	 * @param $index weher键
 	 */
-	function edit_menus_more_for_id($data){
-		return $this->model->edit_batch($this->model->table_developer_menu, $data, "id");
+	function edit_menus_more($data,$index="id"){
+		return $this->model->edit_batch($this->model->table_developer_menu, $data, $index);
 	}
 }

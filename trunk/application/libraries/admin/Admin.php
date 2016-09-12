@@ -86,8 +86,8 @@ class Admin{
 		$footer = $this->init->fetch("footer",$assign);
 		$this->init->assign(array("header"=>$header,"footer"=>$footer));
 	}
-	//权限处理
-	private function _authority(){
-		
+	function sys_message($message,$data,$success=true){
+		$title = isset($data['title'])?$data['title']:"";
+		$url = isset($data['url'])?$data['url']:"";
 	}
 }

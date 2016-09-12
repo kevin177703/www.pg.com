@@ -23,7 +23,7 @@
                             </thead>
                             <tbody>
                             {{foreach from=$data item=d key=k name=foo}}
-                                <tr>
+                                <tr id="menus_tr{{$d.id}}">
                                     <td>
                                     	<input type="checkbox" name="ckboxfoo" class="i-checks" value="{{$d.id}}">{{$d.id}}
 									</td>
@@ -42,8 +42,8 @@
                                     </td>
                                     <td><a href="developer-menus.html?action=list&parent_id={{$d.id}}">下级菜单</a></td>
                                     <td>
-	                                    <a href="javascript:;" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a> | 
-	                                    <a href="javascript:;" class="btn btn-white btn-sm"><i class="fa fa-times"></i> 删除</a>
+	                                    <a href="developer-menus.html?action=edit&id={{$d.id}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a> | 
+	                                    <a href="javascript:menus_del({{$d.id}})" class="btn btn-white btn-sm"><i class="fa fa-times"></i> 删除</a>
                                     </td>
                                 </tr>
                             {{/foreach}}
@@ -79,9 +79,6 @@ $(function(){
 	$("#ckboxfull").on('ifUnchecked', function(event){
 		$("input[name='ckboxfoo']").iCheck('uncheck');
 	});
-	$("#status1").on('ifChecked', function(event){
-		alert(1);
-	});
 	$("#but_sort").click(function(){
 	  	var ids="";
 	  	var sorts = "";
@@ -92,7 +89,37 @@ $(function(){
 	      		sorts += $("#sort"+id).val()+",";
 	   	 	}
 	  	});
-	  	alert(ids+"|"+sorts);
+	  	if(isEmptyVal(ids)){
+	  		msg_show("请选择要修改的数据");
+	  		return false;
+	  	}
+	  	$.ajax({
+			type: "POST",   
+          	url: "ajax/developer-menus.html?action=list&branch=sort",
+          	data:{
+          		ids:ids,
+          		sorts:sorts
+          	}, 
+          	dataType:'json',
+          	beforeSend:function(){   
+          		loading();
+          	},		    
+          	complete: function() {   
+          		unloading();
+          	},   
+          	success: function(data){
+				if(data.result == true){
+					$("input[name='ckboxfoo']").iCheck('uncheck');
+					$("#ckboxfull").iCheck('uncheck');
+					msg_show("修改成功",1,"developer-menus.html?action=list&parent_id={{$parent_id}}");
+				}else{
+					msg_show(data.msg);
+				}               
+			},
+			error: function(data){
+				msg_show("操作失败");
+			}
+	   }); 
 	});
 	$(".onoffswitch-label").on('click',function(e){ 
 		var self = $(".onoffswitch-label").index($(this));
