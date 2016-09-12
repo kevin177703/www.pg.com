@@ -17,14 +17,18 @@ class Admin_main{
 	}
 	//后台首页
 	function get_index(){
-		$data = array();
-		$data['menu'] = $this->init->model->developer->get_menus($this->admin->token);
-		$data['username']= $this->admin->username;
-		$data['group_name']=$this->admin->group_name;
-		$data['now']=time();
-		$data['web_year']=date("Y");
-		$this->init->assign($data);
-		$this->init->display("main/index");
+		if($this->admin->uid > 0){
+			$data = array();
+			$data['menu'] = $this->init->model->developer->get_menus($this->admin->token);
+			$data['username']= $this->admin->username;
+			$data['group_name']=$this->admin->group_name;
+			$data['now']=time();
+			$data['web_year']=date("Y");
+			$this->init->assign($data);
+			$this->init->display("main/index");
+		}else{
+			$this->init->display("main/login");
+		}
 	}
 	function get_home(){
 		echo 11;
@@ -32,7 +36,7 @@ class Admin_main{
 	//后台登录页
 	function get_login(){
 		if($this->admin->uid > 0){
-			skip();
+			$this->admin->sys_message("您已经登录,将进入主页", "index.html");
 		}
 		$this->init->display("main/login");
 	}

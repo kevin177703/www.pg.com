@@ -21,13 +21,32 @@
        <div class="row">
            <div class="col-sm-12">
                <div class="middle-box text-center animated fadeInRightBig">
-                   <h3 class="font-bold">这里是页面内容</h3>
+                   <h3 class="font-bold">{{$title}}</h3>
                    <div class="error-desc">
-                       您可以在这里添加栅格，参考首页及其他页面完成不同的布局
-                       <br/><a href="#" class="btn btn-primary m-t">打开主页</a>
+                      <div class="alert {{if $success==true}}alert-success{{else}}alert-danger{{/if}}">
+                            {{$message}} 
+                      </div>
+                      <div class="alert alert-warning">
+                           <span id="auot_time">3</span>秒后自动跳转，若没有跳转，请<a class="alert-link" href="{{$url}}">点击这里</a>.
+                      </div>
                    </div>
                </div>
            </div>
        </div>
    </div>
- {{$footer}}
+<script src="{{$js}}jquery.min.js?v=1.12.4"></script>
+<script src="{{$js}}bootstrap.min.js?v=3.3.6"></script>
+<script src="{{$js}}plugins/layer/layer.js"></script>
+<script>
+var time=3;
+function show(){
+	$("#auot_time").html(time);
+	if(time<1){
+		location.href = "{{$url}}";
+	}
+	time = time-1;
+}
+setInterval("show()",1000);
+</script>
+</body>
+</html>

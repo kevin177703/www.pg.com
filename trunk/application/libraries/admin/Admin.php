@@ -59,15 +59,6 @@ class Admin{
 			if($this->init->brand_id == ADMIN_BRAND_ID)$this->is_admin_brand = true;
 			if($this->group_id == ADMIN_GROUD_ID) $this->is_admin_group = true;
 		}
-		//是否需要做登录判断
-		$url = ex($this->init->url,"-");
-		if($this->uid<1 && !in_array($url[1],array("login","logout"))){
-			if($this->init->is_ajax){
-				json_error("您的登录已超时");
-			}else{
-				skip("/admin/login");
-			}
-		}
 		$this->brand_id = $this->init->brand_id;
 		//全局模板变量
 		$assign = array(
@@ -85,9 +76,26 @@ class Admin{
 		$header = $this->init->fetch("header",$assign);
 		$footer = $this->init->fetch("footer",$assign);
 		$this->init->assign(array("header"=>$header,"footer"=>$footer));
+		//是否需要做登录判断
+		$url = ex($this->init->url,"-");
+		if($this->uid<1 && !in_array($url[1],array("login","logout","index"))){
+			if($this->init->is_ajax){
+				json_error("您的登录已超时");
+			}else{
+				$this->sys_message("您没有登录或登录已超时", "/admin/login.html");
+			}
+		}
 	}
-	function sys_message($message,$data,$success=true){
-		$title = isset($data['title'])?$data['title']:"";
-		$url = isset($data['url'])?$data['url']:"";
+	/**
+	 * 跳转，提示信息
+	 * @param $message 提示信息
+	 * @param $title 标题
+	 * @param $url 跳转url
+	 * @param $success 是否成功
+	 */
+	function sys_message($message,$url,$title="",$success=true){
+		$data = array("message"=>$message,"title"=>$title,"url"=>$url,"success"=>$success);
+		$this->init->display("main/message",$data);
+		exit();
 	}
 }
