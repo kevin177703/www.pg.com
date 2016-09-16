@@ -136,7 +136,8 @@ $(function(){
           	beforeSend:function(){   
           		loading();
           	},		    
-          	complete: function() {   
+          	complete: function() { 
+          		alert(1);
           		unloading();
           	},   
           	success: function(data){

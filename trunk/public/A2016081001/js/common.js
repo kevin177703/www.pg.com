@@ -34,10 +34,10 @@ function isEmptyVal(B) {
     return false
 }
 function loading(){  
-	layer_load = parent.layer.load(1, {time:0,shade:[0.3,'#000',true]});
+	layer_load = layer.load(1, {time:0,shade:[0.3,'#000',true]});
 }
 function unloading(){
-    layer.close(layer_load);
+	layer.closeAll();
 }
 //icon　0警告，１成功，２错误
 function msg_show(txt,icon,url,top){
