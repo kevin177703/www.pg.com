@@ -1,0 +1,164 @@
+{{$header}}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-tools lleft100">
+                         <a href="developer-menus.html?action=list" class="btn btn-primary btn-xs">添加菜单</a>
+                         <a href="developer-menus.html?action=list" class="btn btn-primary btn-xs">返回菜单管理列表</a>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table me_table_data">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>菜单名称</th>
+                                    <th>菜单链接</th>
+                                    <th>操作权限</th>
+                                    <th>排序(从小到大)</th>
+                                    <th>状态</th>
+                                    <th>下级菜单</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {{foreach from=$data item=d key=k name=foo}}
+                                <tr id="menus_tr{{$d.id}}">
+                                    <td>
+                                    	<input type="checkbox" name="ckboxfoo" class="i-checks" value="{{$d.id}}">{{$d.id}}
+									</td>
+                                    <td>{{$d.name}}</td>
+                                    <td>{{$d.url}}</td>
+                                    <td>{{$d.action}}</td>
+                                    <td><input type="text" id="sort{{$d.id}}" class="form-control" style="width:80px;" value="{{$d.sort}}"></td>
+                                    <td>
+                                    	<div class="onoffswitch">
+			                                <input type="checkbox" name="ckboxstatus" {{if $d.status=='Y'}}checked{{/if}} class="onoffswitch-checkbox" value="{{$d.id}}" id="status{{$smarty.foreach.foo.index}}">
+			                                <label class="onoffswitch-label" for="status{{$smarty.foreach.foo.index}}">
+			                                    <span class="onoffswitch-inner"></span>
+			                                    <span class="onoffswitch-switch"></span>
+			                                </label>
+			                            </div>
+                                    </td>
+                                    <td><a href="developer-menus.html?action=list&parent_id={{$d.id}}">下级菜单</a></td>
+                                    <td>
+	                                    <a href="developer-menus.html?action=edit&id={{$d.id}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a> | 
+	                                    <a href="javascript:menus_del({{$d.id}})" class="btn btn-white btn-sm"><i class="fa fa-times"></i> 删除</a>
+                                    </td>
+                                </tr>
+                            {{/foreach}}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th ><input type="checkbox" id="ckboxfull" class="i-checks">全选</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                    	<button class="btn btn-success " type="button" id="but_sort">
+                                    	<i class="fa"></i>&nbsp;&nbsp;<span class="bold">保存</span>&nbsp;&nbsp;
+                                    	</button>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{$footer}}
+<script>
+$(function(){
+	$("#ckboxfull").on('ifChecked', function(event){
+		$("input[name='ckboxfoo']").iCheck('check');
+	});
+	$("#ckboxfull").on('ifUnchecked', function(event){
+		$("input[name='ckboxfoo']").iCheck('uncheck');
+	});
+	$("#but_sort").click(function(){
+	  	var ids="";
+	  	var sorts = "";
+	  	$("input[name='ckboxfoo']:checkbox").each(function(){
+	    	if(true == $(this).is(':checked')){
+	    		var id=$(this).val();
+	      		ids +=id+",";
+	      		sorts += $("#sort"+id).val()+",";
+	   	 	}
+	  	});
+	  	if(isEmptyVal(ids)){
+	  		msg_show("请选择要修改的数据");
+	  		return false;
+	  	}
+	  	$.ajax({
+			type: "POST",   
+          	url: "ajax/developer-menus.html?action=list&branch=sort",
+          	data:{
+          		ids:ids,
+          		sorts:sorts
+          	}, 
+          	dataType:'json',
+          	beforeSend:function(){   
+          		loading();
+          	},		    
+          	complete: function() {   
+          		unloading();
+          	},   
+          	success: function(data){
+				if(data.result == true){
+					$("input[name='ckboxfoo']").iCheck('uncheck');
+					$("#ckboxfull").iCheck('uncheck');
+					msg_show("修改成功",1,"developer-menus.html?action=list&parent_id={{$parent_id}}");
+				}else{
+					msg_show(data.msg);
+				}               
+			},
+			error: function(data){
+				msg_show("操作失败");
+			}
+	   }); 
+	});
+	$(".onoffswitch-label").on('click',function(e){ 
+		var self = $(".onoffswitch-label").index($(this));
+		var id = $("#status"+self).val();
+		var status = $("#status"+self).is(':checked');
+		$.ajax({
+			type: "POST",   
+          	url: "ajax/developer-menus.html?action=list&branch=status",
+          	data:{
+				id:id,
+				status:status
+          	}, 
+          	dataType:'json',
+          	beforeSend:function(){   
+          		loading();
+          	},		    
+          	complete: function() { 
+          		alert(1);
+          		unloading();
+          	},   
+          	success: function(data){
+				if(data.result != true){
+					msg_show(data.msg);
+					if(status==true){
+						$("#status"+self).iCheck('check');
+					}else{
+						$("#status"+self).iCheck('uncheck');
+					}
+				}               
+			},
+			error: function(data){
+				msg_show("操作失败");
+				if(status==true){
+					$("#status"+self).iCheck('check');
+				}else{
+					$("#status"+self).iCheck('uncheck');
+				}
+			}
+	   }); 
+	});
+});
+</script>
