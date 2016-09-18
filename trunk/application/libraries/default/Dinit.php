@@ -18,6 +18,8 @@ class Dinit{
 	//*******************自定义***********************/
 	public $is_ajax = false;						//是否是ajax
 	public $url = "";								//url
+	public $class = "";								//操作class
+	public $method = "";							//操作method
 	
 	//*******************自定义类**********************/
 	public $model = null;							//数据库模型类

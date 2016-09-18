@@ -31,7 +31,7 @@
                                     <td>{{$d.name}}</td>
                                     <td>{{$d.url}}</td>
                                     <td>{{$d.action}}</td>
-                                    <td><input type="text" id="sort{{$d.id}}" class="form-control" style="width:80px;" value="{{$d.sort}}"></td>
+                                    <td><input type="text" id="sort{{$d.id}}" class="form-control border-green" style="width:82px;" value="{{$d.sort}}"></td>
                                     <td>
                                     	<div class="onoffswitch">
 			                                <input type="checkbox" name="ckboxstatus" {{if $d.status=='Y'}}checked{{/if}} class="onoffswitch-checkbox" value="{{$d.id}}" id="status{{$smarty.foreach.foo.index}}">
@@ -56,8 +56,8 @@
                                     <th></th>
                                     <th></th>
                                     <th>
-                                    	<button class="btn btn-success " type="button" id="but_sort">
-                                    	<i class="fa"></i>&nbsp;&nbsp;<span class="bold">保存</span>&nbsp;&nbsp;
+                                    	<button class="btn btn-primary " type="button" id="but_sort">
+                                    	<i class="fa"></i>&nbsp;&nbsp;&nbsp;<span class="bold">保 存</span>&nbsp;&nbsp;&nbsp;
                                     	</button>
                                     </th>
                                     <th></th>
@@ -74,6 +74,7 @@
 {{$footer}}
 <script>
 $(function(){
+	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
 	$("#ckboxfull").on('ifChecked', function(event){
 		$("input[name='ckboxfoo']").iCheck('check');
 	});
@@ -126,6 +127,11 @@ $(function(){
 		var self = $(".onoffswitch-label").index($(this));
 		var id = $("#status"+self).val();
 		var status = $("#status"+self).is(':checked');
+		if(status==true){
+			status = "N";
+		}else{
+			status = "Y";
+		}
 		$.ajax({
 			type: "POST",   
           	url: "ajax/developer-menus.html?action=list&branch=status",
@@ -137,8 +143,7 @@ $(function(){
           	beforeSend:function(){   
           		loading();
           	},		    
-          	complete: function() { 
-          		alert(1);
+          	complete: function() {
           		unloading();
           	},   
           	success: function(data){

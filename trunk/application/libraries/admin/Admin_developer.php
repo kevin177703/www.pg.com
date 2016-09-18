@@ -18,6 +18,7 @@ class Admin_developer{
 	}
 	//菜单管理
 	function get_menus(){
+		$this->admin->lock_admin();
 		switch ($this->admin->action){
 			case "list":
 				$parent_id = get("parent_id","int");
@@ -41,6 +42,7 @@ class Admin_developer{
 	}
 	//菜单管理-ajax
 	function ajax_menus(){
+		$this->admin->lock_admin();
 		switch ($this->admin->action){
 			case "list":
 				$branch = get("branch");
@@ -64,7 +66,7 @@ class Admin_developer{
 					$id=post("id","int");
 					$status = post("status");
 					if($id<1)json_error("参数错误");
-					$status = $status==true?"N":"Y";
+					if(!in_array($status, array("Y","N")))json_error("数据错误");
 					if($this->init->model->developer->edit_menus_one(array("status"=>$status), array("id"=>$id))){
 						json_ok();
 					}

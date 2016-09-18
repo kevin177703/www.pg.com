@@ -66,6 +66,7 @@ class Base_Controller extends CI_Controller {
 		//判断类的方法
 		$class = new $class($this->init);
 		$method = strtolower($url[1]);
+		$this->init->method = $method;
 		$method = $this->init->is_ajax?"ajax_{$method}":"get_{$method}";
 		if(!method_exists($class, $method)){
 			$this->init->log->w404("{$path}的类{$class}的方法{$method}不存在");

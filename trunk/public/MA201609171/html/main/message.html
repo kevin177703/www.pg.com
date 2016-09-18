@@ -9,12 +9,11 @@
        <div class="row">
            <div class="col-sm-12">
                <div class="middle-box text-center animated fadeInRightBig">
-                   <h3 class="font-bold">{{$title}}</h3>
                    <div class="error-desc">
                       <div class="alert {{if $success==true}}alert-success{{else}}alert-danger{{/if}}">
                             {{$message}} 
                       </div>
-                      <div class="alert alert-warning">
+                      <div class="alert alert-warning hide" id="auto_link">
                            <span id="auot_time">3</span>秒后自动跳转，若没有跳转，请<a class="alert-link" href="{{$url}}">点击这里</a>.
                       </div>
                    </div>
@@ -26,13 +25,16 @@
 <script>
 var time=3;
 function show(){
+	$("#auto_link").show();
 	$("#auot_time").html(time);
 	if(time<1){
 		location.href = "{{$url}}";
 	}
 	time = time-1;
 }
+{{if $url}}
 setInterval("show()",1000);
+{{/if}}
 </script>
 </body>
 </html>

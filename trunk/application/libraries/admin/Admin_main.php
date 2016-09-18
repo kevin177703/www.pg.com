@@ -36,7 +36,7 @@ class Admin_main{
 	//后台登录页
 	function get_login(){
 		if($this->admin->uid > 0){
-			$this->admin->sys_message("您已经登录,将进入主页", "index.html");
+			$this->admin->sys_message("您已经登录,将进入主页", "/admin/");
 		}
 		$this->init->display("main/login");
 	}
@@ -121,7 +121,6 @@ class Admin_main{
 			json_ok("密码修改成功");
 		}
 		json_error("密码修改失败");
-		
 	}
 	//退出登录
 	function ajax_logout(){

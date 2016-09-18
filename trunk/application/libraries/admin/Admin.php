@@ -11,16 +11,6 @@ class Admin{
 	public $token=null;								//令牌
 	public $action = "";							//操作命令
 	
-	//**********************权限组********************/
-	public $is_del = 'N'; 					 		//删除权限
-	public $is_list = 'N'; 			         		//查看列表权限
-	public $is_one = 'N'; 			         		//查看查看权限
-	public $is_add = 'N'; 					 		//添加权限
-	public $is_edit = 'N'; 							//编辑权限
-	public $is_undo = 'N'; 					 		//冲正负权限
-	public $is_exam = 'N'; 					 		//资金审核
-	public $is_conf = 'N'; 					 		//资金确认
-	
 	//**********************后台参数*******************/
 	public $user = array();							//用户
 	public $group = array();						//用户组
@@ -85,6 +75,7 @@ class Admin{
 				$this->sys_message("您没有登录或登录已超时", "/admin/login.html");
 			}
 		}
+		$this->authority();
 	}
 	/**
 	 * 跳转，提示信息
@@ -93,9 +84,37 @@ class Admin{
 	 * @param $url 跳转url
 	 * @param $success 是否成功
 	 */
-	function sys_message($message,$url,$title="",$success=true){
-		$data = array("message"=>$message,"title"=>$title,"url"=>$url,"success"=>$success);
+	function sys_message($message,$url,$success=true){
+		$this->init->template_html = "";
+		$data = array("message"=>$message,"url"=>$url,"success"=>$success);
 		$this->init->display("main/message",$data);
 		exit();
+	}
+	/**
+	 * 权限判断
+	 */
+	function authority(){
+		//超级管理员组拥有全部权限，不判断
+		if($this->group_id==ADMIN_GROUD_ID){
+			return true;
+		}
+		//特定class不需要权限判断
+		if(in_array($this->init->class, array("main"))){
+			return true;
+		}
+		
+	}
+	/**
+	 * 锁定为超级用户组才能操作
+	 */
+	function lock_admin(){
+		if($this->group_id==1){
+			return true;
+		}
+		if($this->init->is_ajax){
+			json_error("无操作权限");
+		}else{
+			$this->sys_message("无操作权限", "" ,false);
+		}
 	}
 }
