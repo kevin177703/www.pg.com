@@ -19,7 +19,7 @@ class Admin_main{
 	function get_index(){
 		if($this->admin->uid > 0){
 			$data = array();
-			$data['menu'] = $this->init->model->developer->get_menus($this->admin->token);
+			$data['menus'] = $this->init->model->developer->get_menus($this->admin->token);
 			$data['username']= $this->admin->username;
 			$data['group_name']=$this->admin->group_name;
 			$data['now']=time();

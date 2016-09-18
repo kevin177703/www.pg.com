@@ -19,6 +19,7 @@ class Admin_developer{
 	//菜单管理
 	function get_menus(){
 		$this->admin->lock_admin();
+		$data = array();
 		switch ($this->admin->action){
 			case "list":
 				$parent_id = get("parent_id","int");
@@ -29,10 +30,27 @@ class Admin_developer{
 				$this->init->display("menus_list",array("data"=>$data['rows'],"parent_id"=>$parent_id));
 				break;
 			case "edit":
-				$this->init->display("menus_edit");
+				$hsubmit = post("hsubmit");
+				$id = get("id");
+				if($hsubmit == 1){
+					
+				}else{
+					$data['info'] = $this->init->model->developer->get_menu_one(array("id"=>$id));
+					if(empty($data['info'])){
+						$this->admin->sys_message("编辑错误，数据不存在", "history",false);
+					}
+					$data['menus'] = $this->init->model->developer->get_menus($this->admin->token);
+					$this->init->display("menus_edit",$data);
+				}
 				break;
 			case "add":
-				$this->init->display("menus_add");
+				$hsubmit = post("hsubmit");
+				if($hsubmit == 1){
+						
+				}else{
+					$data['menus'] = $this->init->model->developer->get_menus($this->admin->token);
+					$this->init->display("menus_add",$data);
+				}
 				break;
 			case "del":
 				break;

@@ -86,6 +86,7 @@ class Admin{
 	 */
 	function sys_message($message,$url,$success=true){
 		$this->init->template_html = "";
+		if($url=="history")$url = "javascript:history.go(-1);";
 		$data = array("message"=>$message,"url"=>$url,"success"=>$success);
 		$this->init->display("main/message",$data);
 		exit();

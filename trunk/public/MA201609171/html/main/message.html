@@ -13,9 +13,11 @@
                       <div class="alert {{if $success==true}}alert-success{{else}}alert-danger{{/if}}">
                             {{$message}} 
                       </div>
-                      <div class="alert alert-warning hide" id="auto_link">
+                      {{if $url}}
+                      <div class="alert alert-warning">
                            <span id="auot_time">3</span>秒后自动跳转，若没有跳转，请<a class="alert-link" href="{{$url}}">点击这里</a>.
                       </div>
+                      {{/if}}
                    </div>
                </div>
            </div>
@@ -25,7 +27,6 @@
 <script>
 var time=3;
 function show(){
-	$("#auto_link").show();
 	$("#auot_time").html(time);
 	if(time<1){
 		location.href = "{{$url}}";

@@ -37,6 +37,13 @@ class Mdeveloper{
 		return $this->model->get($this->model->table_developer_menu,$where);
 	}
 	/**
+	 * 根据条件获取一条菜单数据
+	 * @param $where
+	 */
+	function get_menu_one($where){
+		return $this->model->get($this->model->table_developer_menu,$where);
+	}
+	/**
 	 * 获取菜单
 	 */
 	function get_menus($token){
@@ -44,7 +51,7 @@ class Mdeveloper{
 		$info = $this->model->memcache->get($key);
 		if(empty($info)){
 			$info = null;
-			$where = array('status'=>'Y','level'=>1);
+			$where = array('status'=>'Y','level <'=>3);
 			$data = $this->model->get_list($this->model->table_developer_menu,$where,1000,0,array('sort'=>'ASC'));
 			$data = $data['rows'];
 			if(count($data)<1)return null;
@@ -55,11 +62,12 @@ class Mdeveloper{
 					$_data[$v['id']]['sort']=$v['sort'];
 					$_data[$v['id']]['menuid']=$v['id'];
 					$_data[$v['id']]['menuname']=$v['name'];
+					$_data[$v['id']]['parent_id']=$v['parent_id'];
 				} else {
 					//正常用户权限
 					//if(!in_array($v['id'],$group) && $group_id> $this->init->default_admin_group_id)continue;
 					$url = empty($v['action'])?$v['url']:$v['url']."?action=".$v['action'];
-					$menus = array('menuid'=>$v['id'],'menuname'=>$v['name'],'url'=>$url);
+					$menus = array('menuid'=>$v['id'],'menuname'=>$v['name'],'url'=>$url,"parent_id"=>$v['parent_id']);
 					$_data[$v['parent_id']]['menus'][] = $menus;
 				}
 			}
