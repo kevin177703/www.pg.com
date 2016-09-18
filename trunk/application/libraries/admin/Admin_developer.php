@@ -10,6 +10,7 @@
 class Admin_developer{
 	private $init;                           //默认类
 	private $admin;                          //后台base
+	private $action_list =array();			 //操作类型
 	function __construct($init){
 		$this->init = $init;
 		$this->admin = library("admin","admin");
