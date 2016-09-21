@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-09-19 00:46:53
+Date: 2016-09-21 15:10:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `kv_admin` (
 -- ----------------------------
 -- Records of kv_admin
 -- ----------------------------
-INSERT INTO `kv_admin` VALUES ('1', 'admin', 'c61719fc185a47d0ab80a350898a78ff', '1', '1', '0.00', '0.00', '0', 'Y', 'N', null, '1474198935', '0', 'N');
+INSERT INTO `kv_admin` VALUES ('1', 'admin', 'c61719fc185a47d0ab80a350898a78ff', '1', '1', '0.00', '0.00', '0', 'Y', 'N', null, '1474340140', '0', 'N');
 
 -- ----------------------------
 -- Table structure for kv_admin_group
@@ -162,7 +162,7 @@ CREATE TABLE `kv_developer_menu` (
   `status` char(1) NOT NULL DEFAULT 'Y' COMMENT 'Y启用，N关闭',
   `del` char(1) NOT NULL DEFAULT 'N' COMMENT '是否已删除，Y已删除，N未删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of kv_developer_menu
@@ -184,7 +184,7 @@ INSERT INTO `kv_developer_menu` VALUES ('31', '操作记录', 'log-operate.html'
 INSERT INTO `kv_developer_menu` VALUES ('32', '管理登录', 'log-login_admin.html', null, '30', '97', '2', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('33', '会员登录', 'log-login_users.html', null, '30', '95', '2', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('34', '代理登录', 'log-login_agent.html', null, '30', '93', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('35', '开发管理', '', null, '0', '1', '1', 'Y', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('35', '开发管理', '', '', '0', '2', '1', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('36', '菜单管理', 'developer-menus.html', 'list', '35', '99', '2', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('37', '游戏管理', '', null, '0', '98', '1', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('38', '推广管理', '', null, '0', '10', '1', 'N', 'N');
@@ -216,9 +216,12 @@ INSERT INTO `kv_developer_menu` VALUES ('68', '网站版本', '/agent-version.ht
 INSERT INTO `kv_developer_menu` VALUES ('69', '游戏设置', '/agent-game.html', null, '23', '97', '2', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('70', '服务器设置', '/setting-server.html', null, '1', '98', '2', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('71', '优惠设置', '/setting-sale.html', null, '1', '89', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('72', '网站管理', '', null, '0', '2', '1', 'Y', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('72', '网站管理', '', '', '0', '1', '1', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('73', '网站域名', '/web-list.html', null, '72', '99', '2', 'Y', 'N');
 INSERT INTO `kv_developer_menu` VALUES ('74', '浏览记录', '/log-view.html', null, '30', '96', '2', 'Y', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('75', '添加菜单', 'developer-menus.html', 'add', '36', '99', '1', 'Y', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('76', '修改菜单', 'developer-menus.html', 'edit', '36', '99', '1', 'Y', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('77', '删除菜单', 'developer-menus.html', 'del', '36', '99', '1', 'Y', 'N');
 
 -- ----------------------------
 -- Table structure for kv_log_login
@@ -236,7 +239,7 @@ CREATE TABLE `kv_log_login` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `del` char(1) NOT NULL DEFAULT 'N' COMMENT 'Y后台管理员,N前台会员',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 COMMENT='会员和管理员登陆日志';
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COMMENT='会员和管理员登陆日志';
 
 -- ----------------------------
 -- Records of kv_log_login
@@ -366,6 +369,7 @@ INSERT INTO `kv_log_login` VALUES ('125', 'admin', '登录成功', '7d1f69858b6d
 INSERT INTO `kv_log_login` VALUES ('126', 'admin', '登录成功', 'o66ehem99u1393nf42', '127.0.0.1', '1', 'Y', 'Y', '1474125641', 'N');
 INSERT INTO `kv_log_login` VALUES ('127', 'admin', '登录成功', '321n8r38ael3sf10yj', '127.0.0.1', '1', 'Y', 'Y', '1474194203', 'N');
 INSERT INTO `kv_log_login` VALUES ('128', 'admin', '登录成功', '355fye2b0nf318axbb', '127.0.0.1', '1', 'Y', 'Y', '1474198935', 'N');
+INSERT INTO `kv_log_login` VALUES ('129', 'admin', '登录成功', 'cwe440zsb5b2vn4482', '127.0.0.1', '1', 'Y', 'Y', '1474340140', 'N');
 
 -- ----------------------------
 -- Table structure for kv_log_notes
@@ -491,11 +495,7 @@ CREATE TABLE `kv_session` (
 -- ----------------------------
 -- Records of kv_session
 -- ----------------------------
-INSERT INTO `kv_session` VALUES ('8u5mc2846a6h0ow4142ap07e3q97ab4b', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474123490\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474125314', '1474125314', 'N');
-INSERT INTO `kv_session` VALUES ('c636rsk8660b4f22198fjoi1521fcv8s', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474125314\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474127033', '1474125641', 'N');
-INSERT INTO `kv_session` VALUES ('q7bw24e2anj473578ef282ceh4b338a4', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474194203\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474215243', '1474198935', 'N');
-INSERT INTO `kv_session` VALUES ('v785vdzj5d315q43595cfm34895fum9n', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474120059\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474124874', '1474123490', 'N');
-INSERT INTO `kv_session` VALUES ('x6558omka9cgn9z58axfh64fu40y7b89', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474125641\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474198532', '1474194203', 'N');
+INSERT INTO `kv_session` VALUES ('k97489e377mnk9dchcfcyx98ns0gzu73', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474198935\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474363332', '1474340140', 'N');
 
 -- ----------------------------
 -- Table structure for kv_setting
