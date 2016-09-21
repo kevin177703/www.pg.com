@@ -1,20 +1,93 @@
 {{$header}}
-
-                            <div class="onoffswitch">
-                                <input type="checkbox" checked class="onoffswitch-checkbox" id="example1">
-                                <label class="onoffswitch-label" for="example1">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加菜单</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" action="developer-menus.html?action=add" onsubmit="return cksubmit();">
+                        	<div class="form-group">
+                                <label class="col-sm-2 control-label">菜单名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control border-green width-300" id="name" name="name" value="">
+                                </div>
                             </div>
-                        <div class="switch">
-                            <div class="onoffswitch">
-                                <input type="checkbox" class="onoffswitch-checkbox" id="example2">
-                                <label class="onoffswitch-label" for="example2">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">父类菜单</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b border-green width-300" id="parent_id" name="parent_id">
+                                        <option value="0">根目录</option>
+                                    	{{foreach from=$menus item=data}}
+                                        <option value="{{$data.menuid}}">&nbsp;&nbsp;++{{$data.menuname}}</option>
+                                        {{foreach from=$data.menus item=d}}
+                                        <option value="{{$d.menuid}}" class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>{{$d.menuname}}</option>
+                                        {{/foreach}}
+                                        {{/foreach}}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">菜单链接</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control border-green width-300" id="url" name="url" value="">
+                                    <span class="help-block m-b-none">根目录留空，填写无效</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">操作权限</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control border-green width-300" id="action" name="action" value="">
+                                    <span class="help-block m-b-none">根目录留空，填写无效</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control border-green width-100" id="sort" name="sort" value="99">
+                                	<span class="help-block m-b-none">从小到大(1-99)</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                	<input type="hidden" name="hsubmit" value="1"/>
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" type="button" onclick="javascript:history.go(-1);">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {{$footer}}
+<script>
+function cksubmit(){
+	var name = $("#name").val();
+	var parent_id = $("#parent_id").val();
+	var url = $("#url").val();
+	var action = $("#action").val();
+	var sort = $("#sort").val();
+	if(isEmptyVal(name)){
+		msg_show("请输入菜单名称");
+		return false;
+	}
+	if(parent_id>0 && isEmptyVal(url)){
+		msg_show("请输入菜单链接");
+		return false;
+	}
+	if(parent_id>0 && isEmptyVal(action)){
+		msg_show("请输入操作权限");
+		return false;
+	}
+	if(sort > 99 || sort < 1){
+		msg_show("请输入正确的排序");
+		return false;
+	}
+	return true;
+}
+</script>
+</html>

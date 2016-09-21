@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-tools lleft100">
-                         <a href="developer-menus.html?action=list" class="btn btn-primary btn-xs">添加菜单</a>
+                         <a href="developer-menus.html?action=add" class="btn btn-primary btn-xs">添加菜单</a>
                          <a href="developer-menus.html?action=list" class="btn btn-primary btn-xs">返回菜单管理列表</a>
                     </div>
                     <div class="ibox-content">
@@ -167,6 +167,48 @@ $(function(){
 	   }); 
 	});
 });
+function menus_del(id){
+	swal({
+		title: "确定删除吗?",   
+		text: "删除此菜单以后，它的下级菜单也将不再显示，请谨慎操作!",  
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#1ab394",   
+		confirmButtonText: "确定",  
+		cancelButtonText: "取消",   
+		closeOnConfirm: false,   
+		closeOnCancel: true 
+	}, 
+	function(isConfirm){
+		if (isConfirm) {
+			$.ajax({
+				type: "POST",   
+		      	url: "ajax/developer-menus.html?action=del",
+		      	data:{
+					id:id
+		      	}, 
+		      	dataType:'json',
+		      	beforeSend:function(){   
+		      		loading();
+		      	},		    
+		      	complete: function() {
+		      		unloading();
+		      	},   
+		      	success: function(data){
+					if(data.result == true){
+						swal("成功!", "删除成功。", "success");  
+						$("#menus_tr"+id).hide();
+					}else{
+						swal("失败!", "删除失败。", "error");
+					}         
+				},
+				error: function(data){
+					swal("错误", "程序出现错误，请重试", "error");
+				}
+		   }); 
+			
+		}});
+}
 </script>
 </body>
 </html>

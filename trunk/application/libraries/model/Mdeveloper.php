@@ -17,6 +17,24 @@ class Mdeveloper{
 		$this->model = $model;
 	}
 	/**
+	 * 保存菜单
+	 * @param $data
+	 * @param $id
+	 */
+	function save_menus($data,$id=0){
+		if($id>0){
+			return $this->model->edit($this->model->table_developer_menu, $data, array("id"=>$id));
+		}else{
+			return $this->model->save($this->model->table_developer_menu, $data);
+		}
+	}
+	/**
+	 * 删除菜单
+	 */
+	function del_menus($id){
+		return $this->model->del($this->model->table_developer_menu, array("id"=>$id));
+	}
+	/**
 	 * 获取对应条件的菜单列表
 	 * @param $parent_id 菜单父类id
 	 * @param $limit 个数
@@ -46,7 +64,7 @@ class Mdeveloper{
 	/**
 	 * 获取菜单
 	 */
-	function get_menus($token){
+	function get_menus($token,$showparent=false){
 		$key = "admin_menu_{$token}";
 		$info = $this->model->memcache->get($key);
 		if(empty($info)){
@@ -72,8 +90,10 @@ class Mdeveloper{
 				}
 			}
 			foreach($_data as $k=>$v){
-				if(!isset($v['menus']))unset($_data[$k]);    //不显示无子菜单的菜单项
-				if(!isset($v['menuname']))unset($_data[$k]); //不显示无父菜单的菜单项
+				if(!isset($v['menus']) && $showparent==false)unset($_data[$k]);    //不显示无子菜单的菜单项
+				if(!isset($v['menuname'])){
+					unset($_data[$k]); //不显示无父菜单的菜单项
+				}
 			}
 			$data = array2sort ($_data, 'sort',false);
 			if(count($data)>0 && !empty($data)){

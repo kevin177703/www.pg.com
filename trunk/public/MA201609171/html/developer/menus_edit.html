@@ -8,7 +8,7 @@
                         <h5>编辑菜单</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="developer-menus.html?action=edit" onsubmit="return cksubmit();">
+                        <form method="post" class="form-horizontal" action="developer-menus.html?action=edit&id={{$id}}" onsubmit="return cksubmit();">
                         	<div class="form-group">
                                 <label class="col-sm-2 control-label">菜单名称</label>
                                 <div class="col-sm-10">
@@ -21,9 +21,9 @@
                                     <select class="form-control m-b border-green width-300" id="parent_id" name="parent_id">
                                         <option value="0" {{if $info.parent_id==0}}selected="selected"{{/if}}>根目录</option>
                                     	{{foreach from=$menus item=data}}
-                                        <option value="{{$data.id}}" {{if $info.parent_id==$data.id}}selected="selected"{{/if}}>&nbsp;&nbsp;++{{$data.menuname}}</option>
+                                        <option value="{{$data.menuid}}" {{if $info.parent_id==$data.menuid}}selected="selected"{{/if}}>&nbsp;&nbsp;++{{$data.menuname}}</option>
                                         {{foreach from=$data.menus item=d}}
-                                        <option value="{{$d.id}}" class="red" {{if $info.parent_id==$d.id}}selected="selected"{{/if}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>{{$d.menuname}}</option>
+                                        <option value="{{$d.menuid}}" class="red" {{if $info.parent_id==$d.menuid}}selected="selected"{{/if}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>>{{$d.menuname}}</option>
                                         {{/foreach}}
                                         {{/foreach}}
                                     </select>
@@ -47,6 +47,7 @@
                                 <label class="col-sm-2 control-label">排序</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control border-green width-100" id="sort" name="sort" value="{{$info.sort}}">
+                                	<span class="help-block m-b-none">从小到大(1-99)</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -74,7 +75,19 @@ function cksubmit(){
 		msg_show("请输入菜单名称");
 		return false;
 	}
-	return false;
+	if(parent_id>0 && isEmptyVal(url)){
+		msg_show("请输入菜单链接");
+		return false;
+	}
+	if(parent_id>0 && isEmptyVal(action)){
+		msg_show("请输入操作权限");
+		return false;
+	}
+	if(sort > 99 || sort < 1){
+		msg_show("请输入正确的排序");
+		return false;
+	}
+	return true;
 }
-</script>p
+</script>
 </html>

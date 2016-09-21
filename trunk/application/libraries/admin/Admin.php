@@ -85,6 +85,13 @@ class Admin{
 	 * @param $success 是否成功
 	 */
 	function sys_message($message,$url,$success=true){
+		if($this->init->is_ajax){
+			if($success){
+				json_ok();
+			}else{
+				json_error($message);
+			}
+		}
 		$this->init->template_html = "";
 		if($url=="history")$url = "javascript:history.go(-1);";
 		$data = array("message"=>$message,"url"=>$url,"success"=>$success);
@@ -92,9 +99,18 @@ class Admin{
 		exit();
 	}
 	/**
+	 * 浏览日志
+	 * @param $content 浏览内容
+	 */
+	function view_log($content){
+		$this->init->model->log->view($this->brand_id, $this->uid, $this->username, $content,"Y");
+	}
+	/**
 	 * 权限判断
 	 */
 	function authority(){
+		$menus = $this->init->model->developer->get_menu_for_url($this->init->url.".html", $this->action);
+		if(!isset($menus['id']))$this->sys_message("页面去火星旅游了，请呼叫管理员!", "", false);
 		//超级管理员组拥有全部权限，不判断
 		if($this->group_id==ADMIN_GROUD_ID){
 			return true;
