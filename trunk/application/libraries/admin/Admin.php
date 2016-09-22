@@ -109,17 +109,21 @@ class Admin{
 	 * 权限判断
 	 */
 	function authority(){
-		$menus = $this->init->model->developer->get_menu_for_url($this->init->url.".html", $this->action);
-		if(!isset($menus['id']))$this->sys_message("页面去火星旅游了，请呼叫管理员!", "", false);
-		//超级管理员组拥有全部权限，不判断
-		if($this->group_id==ADMIN_GROUD_ID){
-			return true;
-		}
 		//特定class不需要权限判断
 		if(in_array($this->init->class, array("main"))){
 			return true;
 		}
-		
+		//获取页面信息
+		$menus = $this->init->model->developer->get_menu_for_url($this->init->url.".html", $this->action);
+		if(!isset($menus['id']))$this->sys_message("页面去火星旅游了，请呼叫管理员!", "", false);
+		//超级管理员组拥有全部权限，不判断
+		if($this->group_id==ADMIN_GROUD_ID){
+			//写访问日志
+			if($menus['log']=='Y' && $this->init->is_ajax==false){
+				$this->view_log($menus['name']);
+			}
+			return true;
+		}
 	}
 	/**
 	 * 锁定为超级用户组才能操作

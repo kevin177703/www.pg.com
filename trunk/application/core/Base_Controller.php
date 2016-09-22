@@ -49,6 +49,8 @@ class Base_Controller extends CI_Controller {
 		}
 		//对应文件夹
 		$model = strtolower(APP);
+		$class = strtolower($url[0]);
+		$this->init->class = $class;
 		//判断类
 		$class = $model."_".strtolower($url[0]);
 		$class = ucfirst($class);
@@ -67,6 +69,7 @@ class Base_Controller extends CI_Controller {
 		$class = new $class($this->init);
 		$method = strtolower($url[1]);
 		$this->init->method = $method;
+		
 		$method = $this->init->is_ajax?"ajax_{$method}":"get_{$method}";
 		if(!method_exists($class, $method)){
 			$this->init->log->w404("{$path}的类{$class}的方法{$method}不存在");

@@ -18,6 +18,7 @@
                                     <th>操作权限</th>
                                     <th>排序(从小到大)</th>
                                     <th>状态</th>
+                                    <th>启用日志</th>
                                     <th>下级菜单</th>
                                     <th>操作</th>
                                 </tr>
@@ -35,7 +36,16 @@
                                     <td>
                                     	<div class="onoffswitch">
 			                                <input type="checkbox" name="ckboxstatus" {{if $d.status=='Y'}}checked{{/if}} class="onoffswitch-checkbox" value="{{$d.id}}" id="status{{$smarty.foreach.foo.index}}">
-			                                <label class="onoffswitch-label" for="status{{$smarty.foreach.foo.index}}">
+			                                <label class="onoffswitch-label status-click" for="status{{$smarty.foreach.foo.index}}">
+			                                    <span class="onoffswitch-inner"></span>
+			                                    <span class="onoffswitch-switch"></span>
+			                                </label>
+			                            </div>
+                                    </td>
+                                    <td>
+                                    	<div class="onoffswitch">
+			                                <input type="checkbox" name="ckboxlog" {{if $d.log=='Y'}}checked{{/if}} class="onoffswitch-checkbox" value="{{$d.id}}" id="log{{$smarty.foreach.foo.index}}">
+			                                <label class="onoffswitch-label log-click" for="log{{$smarty.foreach.foo.index}}">
 			                                    <span class="onoffswitch-inner"></span>
 			                                    <span class="onoffswitch-switch"></span>
 			                                </label>
@@ -123,8 +133,51 @@ $(function(){
 			}
 	   }); 
 	});
-	$(".onoffswitch-label").on('click',function(e){ 
-		var self = $(".onoffswitch-label").index($(this));
+	$(".log-click").on('click',function(e){ 
+		var self = $(".log-click").index($(this));
+		var id = $("#log"+self).val();
+		var log = $("#log"+self).is(':checked');
+		if(log==true){
+			log = "N";
+		}else{
+			log = "Y";
+		}
+		$.ajax({
+			type: "POST",   
+          	url: "ajax/developer-menus.html?action=list&branch=log",
+          	data:{
+				id:id,
+				log:log
+          	}, 
+          	dataType:'json',
+          	beforeSend:function(){   
+          		loading();
+          	},		    
+          	complete: function() {
+          		unloading();
+          	},   
+          	success: function(data){
+				if(data.result != true){
+					msg_show(data.msg);
+					if(log==true){
+						$("#log"+self).iCheck('check');
+					}else{
+						$("#log"+self).iCheck('uncheck');
+					}
+				}               
+			},
+			error: function(data){
+				msg_show("操作失败");
+				if(log==true){
+					$("#log"+self).iCheck('check');
+				}else{
+					$("#log"+self).iCheck('uncheck');
+				}
+			}
+	   }); 
+	});
+	$(".status-click").on('click',function(e){ 
+		var self = $(".status-click").index($(this));
 		var id = $("#status"+self).val();
 		var status = $("#status"+self).is(':checked');
 		if(status==true){

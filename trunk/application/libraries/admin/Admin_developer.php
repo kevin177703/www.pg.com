@@ -122,6 +122,15 @@ class Admin_developer{
 						json_ok();
 					}
 					json_error("修改失败");
+				}elseif($branch=="log"){
+					$id=post("id","int");
+					$log = post("log");
+					if($id<1)json_error("参数错误");
+					if(!in_array($status, array("Y","N")))json_error("数据错误");
+					if($this->init->model->developer->edit_menus_one(array("status"=>$status), array("id"=>$id))){
+						json_ok();
+					}
+					json_error("修改失败");
 				}
 				break;
 			case "del":
