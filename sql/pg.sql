@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-09-21 15:10:31
+Date: 2016-09-23 07:07:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `kv_admin` (
 -- ----------------------------
 -- Records of kv_admin
 -- ----------------------------
-INSERT INTO `kv_admin` VALUES ('1', 'admin', 'c61719fc185a47d0ab80a350898a78ff', '1', '1', '0.00', '0.00', '0', 'Y', 'N', null, '1474340140', '0', 'N');
+INSERT INTO `kv_admin` VALUES ('1', 'admin', 'c61719fc185a47d0ab80a350898a78ff', '1', '1', '0.00', '0.00', '0', 'Y', 'N', null, '1474552048', '0', 'N');
 
 -- ----------------------------
 -- Table structure for kv_admin_group
@@ -160,6 +160,7 @@ CREATE TABLE `kv_developer_menu` (
   `sort` smallint(4) DEFAULT '0' COMMENT '从大到小',
   `level` tinyint(1) NOT NULL DEFAULT '1' COMMENT '菜单级别',
   `status` char(1) NOT NULL DEFAULT 'Y' COMMENT 'Y启用，N关闭',
+  `log` char(1) DEFAULT 'N' COMMENT 'Y启用访问日志，N关闭访问日志',
   `del` char(1) NOT NULL DEFAULT 'N' COMMENT '是否已删除，Y已删除，N未删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COMMENT='菜单表';
@@ -167,61 +168,61 @@ CREATE TABLE `kv_developer_menu` (
 -- ----------------------------
 -- Records of kv_developer_menu
 -- ----------------------------
-INSERT INTO `kv_developer_menu` VALUES ('1', '系统设置', '', null, '0', '11', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('2', '菜单设置', 'setting-menu.html', null, '1', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('3', '会员管理', '', null, '0', '3', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('4', '会员列表', 'users-list.html', null, '3', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('18', '管理组管理', 'setting-group.html', null, '1', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('19', '管理员管理', 'setting-manager.html', null, '1', '96', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('23', '代理管理', '', null, '0', '5', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('24', '代理列表', 'agent-list.html', null, '23', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('25', '会员级别', 'users-group.html', null, '3', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('27', '资金管理', '', null, '0', '4', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('28', '资金记录', 'money-note.html', null, '27', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('29', '资金类型', 'money-type.html', null, '27', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('30', '日志记录', '', null, '0', '13', '1', 'N', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('31', '操作记录', 'log-operate.html', null, '30', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('32', '管理登录', 'log-login_admin.html', null, '30', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('33', '会员登录', 'log-login_users.html', null, '30', '95', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('34', '代理登录', 'log-login_agent.html', null, '30', '93', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('35', '开发管理', '', '', '0', '2', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('36', '菜单管理', 'developer-menus.html', 'list', '35', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('37', '游戏管理', '', null, '0', '98', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('38', '推广管理', '', null, '0', '10', '1', 'N', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('39', '推广统计', '', null, '38', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('40', '来源统计', '', null, '38', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('41', '好友推荐', '', null, '38', '95', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('42', '活动管理', '', null, '0', '8', '1', 'N', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('43', '优惠活动', '', null, '42', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('44', '信息管理', '', null, '0', '9', '1', 'N', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('45', '运营公告', '', null, '44', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('46', '系统通知', '', null, '44', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('47', '站内信息', '', null, '44', '95', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('48', '短信发送', '', null, '44', '93', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('49', '用户留言', '', null, '44', '91', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('50', '资金记录', '/log-money.html', null, '30', '91', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('51', '银行卡管理', '/money-bank.html', null, '27', '95', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('55', '管理登录', '/log-login_admin.html', null, '30', '96', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('58', 'IP黑白名单', '/setting-ip.html', null, '1', '93', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('59', 'API设置', '/setting-api.html', null, '1', '91', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('60', '网站设置', '/setting-web.html', null, '1', '89', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('61', 'URL管理', '', null, '0', '7', '1', 'N', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('62', 'URL设置', '/url-setting.html', null, '61', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('63', 'URL列表', '/url-list.html', null, '61', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('64', '会员银行卡', '/users-bank.html', null, '3', '95', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('65', '游戏管理', '', null, '0', '6', '1', 'N', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('66', '游戏类型', '/game-type.html', null, '65', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('67', '代理设置', '/agent-host.html', null, '23', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('68', '网站版本', '/agent-version.html', null, '23', '93', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('69', '游戏设置', '/agent-game.html', null, '23', '97', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('70', '服务器设置', '/setting-server.html', null, '1', '98', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('71', '优惠设置', '/setting-sale.html', null, '1', '89', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('72', '网站管理', '', '', '0', '1', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('73', '网站域名', '/web-list.html', null, '72', '99', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('74', '浏览记录', '/log-view.html', null, '30', '96', '2', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('75', '添加菜单', 'developer-menus.html', 'add', '36', '99', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('76', '修改菜单', 'developer-menus.html', 'edit', '36', '99', '1', 'Y', 'N');
-INSERT INTO `kv_developer_menu` VALUES ('77', '删除菜单', 'developer-menus.html', 'del', '36', '99', '1', 'Y', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('1', '系统设置', '', null, '0', '11', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('2', '菜单设置', 'setting-menu.html', null, '1', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('3', '会员管理', '', null, '0', '3', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('4', '会员列表', 'users-list.html', null, '3', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('18', '管理组管理', 'setting-group.html', null, '1', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('19', '管理员管理', 'setting-manager.html', null, '1', '96', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('23', '代理管理', '', null, '0', '5', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('24', '代理列表', 'agent-list.html', null, '23', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('25', '会员级别', 'users-group.html', null, '3', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('27', '资金管理', '', null, '0', '4', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('28', '资金记录', 'money-note.html', null, '27', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('29', '资金类型', 'money-type.html', null, '27', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('30', '日志记录', '', null, '0', '13', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('31', '操作记录', 'log-operate.html', null, '30', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('32', '管理登录', 'log-login_admin.html', null, '30', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('33', '会员登录', 'log-login_users.html', null, '30', '95', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('34', '代理登录', 'log-login_agent.html', null, '30', '93', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('35', '开发管理', '', '', '0', '2', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('36', '菜单管理', 'developer-menus.html', 'list', '35', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('37', '游戏管理', '', null, '0', '98', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('38', '推广管理', '', null, '0', '10', '1', 'N', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('39', '推广统计', '', null, '38', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('40', '来源统计', '', null, '38', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('41', '好友推荐', '', null, '38', '95', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('42', '活动管理', '', null, '0', '8', '1', 'N', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('43', '优惠活动', '', null, '42', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('44', '信息管理', '', null, '0', '9', '1', 'N', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('45', '运营公告', '', null, '44', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('46', '系统通知', '', null, '44', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('47', '站内信息', '', null, '44', '95', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('48', '短信发送', '', null, '44', '93', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('49', '用户留言', '', null, '44', '91', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('50', '资金记录', '/log-money.html', null, '30', '91', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('51', '银行卡管理', '/money-bank.html', null, '27', '95', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('55', '管理登录', '/log-login_admin.html', null, '30', '96', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('58', 'IP黑白名单', '/setting-ip.html', null, '1', '93', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('59', 'API设置', '/setting-api.html', null, '1', '91', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('60', '网站设置', '/setting-web.html', null, '1', '89', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('61', 'URL管理', '', null, '0', '7', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('62', 'URL设置', '/url-setting.html', null, '61', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('63', 'URL列表', '/url-list.html', null, '61', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('64', '会员银行卡', '/users-bank.html', null, '3', '95', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('65', '游戏管理', '', null, '0', '6', '1', 'N', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('66', '游戏类型', '/game-type.html', null, '65', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('67', '代理设置', '/agent-host.html', null, '23', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('68', '网站版本', '/agent-version.html', null, '23', '93', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('69', '游戏设置', '/agent-game.html', null, '23', '97', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('70', '服务器设置', '/setting-server.html', null, '1', '98', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('71', '优惠设置', '/setting-sale.html', null, '1', '89', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('72', '网站管理', '', '', '0', '1', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('73', '网站域名', '/web-list.html', null, '72', '99', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('74', '浏览记录', '/log-view.html', null, '30', '96', '2', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('75', '添加菜单', 'developer-menus.html', 'add', '36', '99', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('76', '修改菜单', 'developer-menus.html', 'edit', '36', '99', '1', 'Y', 'N', 'N');
+INSERT INTO `kv_developer_menu` VALUES ('77', '删除菜单', 'developer-menus.html', 'del', '36', '99', '1', 'Y', 'N', 'N');
 
 -- ----------------------------
 -- Table structure for kv_log_login
@@ -239,7 +240,7 @@ CREATE TABLE `kv_log_login` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `del` char(1) NOT NULL DEFAULT 'N' COMMENT 'Y后台管理员,N前台会员',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COMMENT='会员和管理员登陆日志';
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 COMMENT='会员和管理员登陆日志';
 
 -- ----------------------------
 -- Records of kv_log_login
@@ -370,6 +371,7 @@ INSERT INTO `kv_log_login` VALUES ('126', 'admin', '登录成功', 'o66ehem99u13
 INSERT INTO `kv_log_login` VALUES ('127', 'admin', '登录成功', '321n8r38ael3sf10yj', '127.0.0.1', '1', 'Y', 'Y', '1474194203', 'N');
 INSERT INTO `kv_log_login` VALUES ('128', 'admin', '登录成功', '355fye2b0nf318axbb', '127.0.0.1', '1', 'Y', 'Y', '1474198935', 'N');
 INSERT INTO `kv_log_login` VALUES ('129', 'admin', '登录成功', 'cwe440zsb5b2vn4482', '127.0.0.1', '1', 'Y', 'Y', '1474340140', 'N');
+INSERT INTO `kv_log_login` VALUES ('130', 'admin', '登录成功', '7rs1d2f59vgq8b4b37', '127.0.0.1', '1', 'Y', 'Y', '1474552048', 'N');
 
 -- ----------------------------
 -- Table structure for kv_log_notes
@@ -495,7 +497,7 @@ CREATE TABLE `kv_session` (
 -- ----------------------------
 -- Records of kv_session
 -- ----------------------------
-INSERT INTO `kv_session` VALUES ('k97489e377mnk9dchcfcyx98ns0gzu73', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474198935\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474363332', '1474340140', 'N');
+INSERT INTO `kv_session` VALUES ('e443bg95a4629724ipyh8495jc6js871', '{\"user\":{\"id\":\"1\",\"username\":\"admin\",\"brand_id\":\"1\",\"group_id\":\"1\",\"maxmoney\":\"0.00\",\"operatemoney\":\"0.00\",\"operatettime\":\"0\",\"status\":\"Y\",\"is_luck\":\"N\",\"lucktime\":null,\"unlucktime\":\"1474340140\",\"addtime\":\"0\",\"del\":\"N\"},\"group\":{\"id\":\"1\",\"name\":\"\\u8d85\\u7ea7\\u7ba1\\u7406\\u5458\",\"brand_id\":\"1\",\"maxtotalcash\":\"0.00\",\"maxdaycash\":\"0.00\",\"menus_sel\":\"\",\"menus_add\":null,\"menus_edit\":null,\"menus_del\":null,\"menus_undo\":\"N\",\"menus_exam\":\"N\",\"menus_conf\":\"N\",\"menus_admin\":\"Y\",\"del\":\"N\"}}', '1', 'Y', '1474554036', '1474552048', 'N');
 
 -- ----------------------------
 -- Table structure for kv_setting
